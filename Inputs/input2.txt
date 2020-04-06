@@ -1,0 +1,13 @@
+TEXTO
+a a b
+b
+b
+
+d a a a
+c
+FIM.
+LINHAS b
+ASSOC a 3
+ASSOC c 6
+ASSOC c 5
+TCHAU
