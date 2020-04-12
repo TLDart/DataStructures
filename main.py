@@ -10,9 +10,18 @@ import sys
 
 class Tester:
     def __init__(self, items):
+        '''
+            Initializes the tester
+        :param items: Data Structures to be tested
+        '''
         self.items = items
 
     def test(self, item=None):
+        '''
+            Runs the test over the Datastructure(s)
+        :param item: Optional -> DataStructure can be specified here
+        :return: Prints the results of the the test
+        '''
         results = []
         if item:
             tests = item
@@ -27,6 +36,12 @@ class Tester:
             print('\n'.join(results))
 
     def timedtest(self, files, item=None):
+        '''
+            Function used to time test the DataStructures
+        :param files: files to test the dataStructures on
+        :param item: Optional parameter to test the dataStructures
+        :return: --
+        '''
         tests = item if item else self.items
         for file in files:
             maxlines = len(open(file, "r").readlines()) - 1
@@ -60,6 +75,11 @@ class Tester:
                 avgTime = 0
 
     def outputData(self, data):
+        '''
+        Formats the data a report can be printed
+        :param data: array that contains all time data about a dataStructure
+        :return: --
+        '''
         print(f"Filename : {data[0]}, using {data[1]}")
         print(f"Total number of words: {data[2]}")
         print(f"Total number of unique  words: {data[3]}")
@@ -71,6 +91,12 @@ class Tester:
         print("----------------END OF REPORT----------------------")
 
     def parser(self, string, treeType):
+        '''
+            Function that receives a string and activates the correct function based on that
+        :param string: string to be evaluated
+        :param treeType: type of tree being currently used
+        :return: result of an operation over the string
+        '''
         data = string.split()
         if data[0] == "TEXTO":
             treeType.parseText()
@@ -92,6 +118,12 @@ class Tester:
 
 
     def assocWrapper(self, treeType, data):
+        '''
+            Wrapper required to use the timeit function
+        :param treeType: Tree used for testing
+        :param data: array that contains both word and line to be found
+        :return:
+        '''
         node = treeType.get(data[0])
         if node:
             node.lines.get(int(data[1]))
@@ -99,6 +131,13 @@ class Tester:
         return "NAO ENCONTRADA."
 
     def generateRandomWords(self, filename, size, iterations=1):
+        '''
+            Generates a set random words from a filename
+        :param filename: The source of the words
+        :param size: numbers of words to be generated
+        :param iterations: number of sets of words to be generated
+        :return:
+        '''
         file = open(filename, "r")
         lines = file.readlines()
         words = [self.parseWord(word) for line in lines for word in line.split()]
@@ -106,13 +145,18 @@ class Tester:
         return [random.sample(words, min(size, len(words))) for _ in range(iterations)]
 
     def parseWord(self, word):
+        '''
+            Removes all extra characters from a word
+        :param word: Word to be parsed
+        :return: word parsed
+        '''
         return word.replace(";", "").replace(",", "").replace(".", "").replace("\n", "").replace(")", "").replace(
             "(", "").replace("\n", "")
 
     def wrapper(self, func, *args, **kwargs):
         '''
         :param func: function to be passed
-        :param args: parameters added to the fucntions
+        :param args: parameters added to the functions
         :param kwargs: keywords added to the function
         :return: function defined as func
         '''
@@ -125,10 +169,10 @@ class Tester:
 
 if __name__ == '__main__':
     sys.setrecursionlimit(5000)
-    new = Tester([LinkedList(LinkedList), AVLTree(AVLTree), RBTree(RBTree), SplayTree(SplayTree)])
+    new = Tester([AVLTree(AVLTree)])
     #new.timedtest(["Inputs/input2.txt"])
     #new.test()
-    new.timedtest(["Inputs/F3TEXTOA.txt", "Inputs/F3TEXTOB.txt", "Inputs/F3TEXTOC.txt", "Inputs/F3TEXTOD.txt"])
+    new.timedtest(["Inputs/F3TEXTOD.txt"])
     #new.timedtest("Inputs/F3TEXTOD.txt"])
    #new.test()
 

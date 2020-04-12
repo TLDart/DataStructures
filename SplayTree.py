@@ -4,9 +4,20 @@ from TreeNode import TreeNode
 
 class SplayTree(BinarySearchTree):
     def __init__(self, substructure, root=None):
+        """
+            Initiates the BSTree
+        :param substructure: substructure used in the AVL Tree nodes
+        :param root: root of the AVLTree
+        """
         super().__init__(substructure, root)
 
     def balancer(self, root, node):
+        """
+            Balancing function used in the SplayTree
+        :param root: node to be worked in
+        :param node: copy of the node used (needed to keep track of operations when going up in recursion
+        :return: balanced
+        """
         if node.data > root.data:
             if root.right and node.data > root.right.data and root.right.right and node.data == root.right.right.data:
                 root.rotateLeft(self.rotations)
@@ -29,6 +40,14 @@ class SplayTree(BinarySearchTree):
         return root
 
     def findNSplay(self, root, node, balancer):
+        """
+            Function similar to a regular get function but allows for an operation to be performed at the end of the get
+            Additionally if the node is not found no balancing is done
+        :param root: node of the tree currently being worked in
+        :param node: node being searched
+        :param balancer: balancing function
+        :return:
+        """
         if node.data == root.data:
             return root
         elif node.data > root.data:
@@ -41,6 +60,11 @@ class SplayTree(BinarySearchTree):
         return balancer(root, node)
 
     def get(self, node):
+        """
+            Searches for a node in the tree, additionally it performs a splay in the tree after finding the node
+        :param node: node to be searched
+        :return: Node if the node is found, else is None
+        """
         if self.root:
             new = node if isinstance(node, TreeNode) else TreeNode(node)
             self.root = self.findNSplay(self.root, new, self.balancer)
@@ -49,6 +73,11 @@ class SplayTree(BinarySearchTree):
             return None
 
     def find(self, node):
+        """
+            Performs a search on the tree without splaying after, this method is used because when repeating commands to get an average the performing the command once would void the results for the next commands
+        :param node: node to be searched
+        :return: None if the node is not found, the correspondent Tree node
+        """
         if self.root:
             new = node if isinstance(node, TreeNode) else TreeNode(node)
             return self.root.get(new)

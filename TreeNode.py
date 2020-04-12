@@ -3,6 +3,13 @@ from Node import Node
 
 class TreeNode(Node):
     def __init__(self, data, lines=None, left=None, right=None):
+        """
+            Initializes the tree node
+        :param data: data
+        :param lines: DataStructure used in the supplemental tree
+        :param left: left child of the node
+        :param right: right child of the node
+        """
         super(TreeNode, self).__init__(data, lines)
         self.left = left
         self.right = right
@@ -10,6 +17,11 @@ class TreeNode(Node):
         self.parent = None
 
     def __contains__(self, node):
+        """
+            Verifies if a node is in tree
+        :param node: node to be searched
+        :return: False if the node is not false, else True
+        """
         if node.data == self.data:
             return True
         elif node.data > self.data:
@@ -18,6 +30,10 @@ class TreeNode(Node):
             return False if self.left is None else node in self.left
 
     def height(self):
+        """
+            Calculates the height of a node
+        :return: height of a node
+        """
         if self.right is None and self.left is None:
             return 1
         elif self.right is None:
@@ -28,6 +44,10 @@ class TreeNode(Node):
             return 1 + max(self.right.height(), self.left.height())
 
     def EF(self):
+        """
+            Calculates the equilibrium factor in the node (used in AVL Tree)
+        :return: equilibrium factor of a node
+        """
         if self.right is None and self.left is None:
             return 0
         elif self.right is None:
@@ -38,6 +58,12 @@ class TreeNode(Node):
             return self.left.height() - self.right.height()
 
     def add(self, node, balancer):
+        """
+            Performs a binary search tree add and the then uses the balancer to the node
+        :param node:
+        :param balancer: balancing function applied to the node after the bst add
+        :return: returns the tree with the balanced node
+        """
         if self.data == node.data:
             raise ValueError
         if node.data > self.data:
@@ -56,6 +82,11 @@ class TreeNode(Node):
         return balancer(self, node)
 
     def rotateRight(self, rotations):
+        """
+            Rotates self to the right whilst also adjusting the parent node
+        :param rotations: used to count rotations
+        :return: returns the rotated node
+        """
         new = self.left
         new.parent = self.parent
         if new.right:
@@ -69,6 +100,11 @@ class TreeNode(Node):
         return new
 
     def rotateLeft(self, rotations):  # With right child
+        """
+            Rotates self to the left whilst also adjusting the parent node
+        :param rotations: used to count rotations
+        :return: returns the rotated node
+        """
         new = self.right
         new.parent = self.parent
         if new.left:
@@ -82,6 +118,10 @@ class TreeNode(Node):
         return new
 
     def InOrder(self, order):
+        """
+        :param order: list that will hold all the values
+        :return: Recursive function that fills the array with the items of the tree in Order
+        """
         if self.left:
             self.left.InOrder(order)
         order.append(self.data)
@@ -89,6 +129,10 @@ class TreeNode(Node):
             self.right.InOrder(order)
 
     def PreOrder(self, order):
+        """
+        :param order: list that will hold all the values
+        :return: Recursive function that fills the array with the items of the tree in Post Order
+        """
         order.append(self.data)
         if self.left:
             self.left.PreOrder()
@@ -107,6 +151,11 @@ class TreeNode(Node):
         order.append(self.data)
 
     def get(self, node):
+        """
+            Searches for a node in the tree
+        :param node: node to be searched
+        :return: None if node is not found, else returns a copy of the node in the tree
+        """
         if node.data == self.data:
             return self
         elif node.data > self.data:

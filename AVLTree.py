@@ -3,9 +3,20 @@ from BSTree import BinarySearchTree
 
 class AVLTree(BinarySearchTree):
     def __init__(self, substructure, root=None):
+        """
+            Initiates the AVLTree
+        :param substructure: substructure used in the AVL Tree nodes
+        :param root: root of the AVLTree
+        """
         super().__init__(substructure, root)
 
     def balancer(self, root, node):
+        """
+            Balancing function used in AVL Tree
+        :param root: node to be worked in
+        :param node: copy of the node used (needed to keep track of operations when going up in recursion
+        :return: balanced
+        """
         ef = root.EF()
         # print(f"{self},{ef}")
         if ef > 1:
