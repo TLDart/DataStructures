@@ -20,6 +20,7 @@ class Treap(BinarySearchTree):
         """
         new = node if isinstance(node, TreeNode) else TreeNode(node, self.substructure(self.substructure))
         new.key = random.random()
+        #print(new.data, new.key)
         if lines:
             for line in lines:
                 new.lines.add(line)
@@ -31,15 +32,6 @@ class Treap(BinarySearchTree):
             self.root = new
             self.root.red = False
 
-    def balancer(self, root, node):
-        """
-            Balancing function used in the SplayTree
-        :param root: node to be worked in
-        :param node: copy of the node used (needed to keep track of operations when going up in recursion
-        :return: balanced
-        """
-        return root.maxHeapify(self.rotations)
-
 
 class MaxTreap(Treap):
     def __init__(self, substructure, root=None):
@@ -50,16 +42,6 @@ class MaxTreap(Treap):
         """
         super().__init__(substructure, root)
 
-
-class MinTreap(BinarySearchTree):
-    def __init__(self, substructure, root=None):
-        """
-            Initiates the Initiates a minHeap
-        :param substructure: substructure used in the AVL Tree nodes
-        :param root: root of the AVLTree
-        """
-        super().__init__(substructure, root)
-
     def balancer(self, root, node):
         """
             Balancing function used in the SplayTree
@@ -67,11 +49,50 @@ class MinTreap(BinarySearchTree):
         :param node: copy of the node used (needed to keep track of operations when going up in recursion
         :return: balanced
         """
-        return root.minHeapify(self.rotations)
+        if root.left:
+            if root.left.data == node.data:
+                if root.key < node.key:
+                    return root.rotateRight(self.rotations)
+
+        if root.right:
+            if root.right.data == node.data:
+                if root.key < node.key:
+                    return root.rotateLeft(self.rotations)
+        return root
+
+
+
+class MinTreap(Treap):
+    def __init__(self, substructure, root=None):
+        """
+            Initiates minTreap
+        :param substructure: substructure used in the AVL Tree nodes
+        :param root: root of the AVLTree
+        """
+        super().__init__(substructure, root)
+
+    def balancer(self, root, node):
+        """
+            Balancing function used in the MinTreap
+        :param root: node to be worked in
+        :param node: copy of the node used (needed to keep track of operations when going up in recursion
+        :return: balanced
+        """
+        if root.left:
+            if root.left.data == node.data:
+                if root.key > node.key:
+                    return root.rotateRight(self.rotations)
+
+        if root.right:
+            if root.right.data == node.data:
+                if root.key > node.key:
+                    return root.rotateLeft(self.rotations)
+        return root
+
 
 if __name__ == '__main__':
-    trp = Treap(Treap)
-    arr2 = [10, 11, 8, 9, 7, 20, 12, 4, 2, 5]
+    trp = MaxTreap(MaxTreap)
+    arr2 = [10, 2, 7, 9, 16, 1, 3, 12, 15, 4, 5, 17, 20, 8, 14, 11, 18, 6, 19, 13]
     for i in arr2:
         trp.add(i)
     print("lol")

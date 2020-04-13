@@ -5,7 +5,9 @@ from RBTree import RBTree
 from SplayTree import SplayTree
 from BSTree import BinarySearchTree
 from LinkedList import LinkedList
+from Treap import MaxTreap, MinTreap
 import sys
+import csv
 
 
 class Tester:
@@ -42,6 +44,9 @@ class Tester:
         :param item: Optional parameter to test the dataStructures
         :return: --
         '''
+        self.rawOutput("raw_output",
+                       ["Filename", "TreeType", "Total elements", "Unique Elements", "NUmber of rotations", "Build Time", "50 Lines Assorted",
+                        "Assoc 50 Assorted", "Lines 500 10-set"])
         tests = item if item else self.items
         for file in files:
             maxlines = len(open(file, "r").readlines()) - 1
@@ -54,8 +59,13 @@ class Tester:
                 rotates = element.rotations
                 buildTime /= 20
                 for i in range(50):
-                    wrapped = self.wrapper(element.get, subset50[0][i])
-                    avgTime += float(timeit.timeit(wrapped, number=20) * 1000)
+                    if element.__class__.__name__ == "SplayTree":
+                        wrapped = self.wrapper(element.find, subset50[0][i])
+                        avgTime += float(timeit.timeit(wrapped, number=20) * 1000)
+                        element.get(subset50[0][i])
+                    else:
+                        wrapped = self.wrapper(element.get, subset50[0][i])
+                        avgTime += float(timeit.timeit(wrapped, number=20) * 1000)
                 lines50 = avgTime / 20
                 avgTime = 0
                 for i in range(50):
@@ -65,14 +75,25 @@ class Tester:
                 avgTime = 0
                 for i in range(500):
                     choice = random.choice(subset10[0])
+                    if element.__class__.__name__ == "SplayTree":
+                        wrapped = self.wrapper(element.find, choice)
+                        avgTime += float(timeit.timeit(wrapped, number=20) * 1000)
+                        element.get(choice)
                     wrapped = self.wrapper(element.get, choice)
                     avgTime += float(timeit.timeit(wrapped, number=20) * 1000)
                 lines500 = avgTime / 20
 
+                self.rawOutput("raw_output", [file, element.__class__.__name__, element.total, element.unique, rotates[0], buildTime, lines50,
+                     assoc50, lines500])
                 self.outputData(
-                    [file, element.__class__.__name__, element.total, element.unique, rotates, buildTime, lines50,
+                    [file, element.__class__.__name__, element.total, element.unique, rotates[0], buildTime, lines50,
                      assoc50, lines500])
                 avgTime = 0
+
+    def rawOutput(self, filename, data):
+        with open(f'{filename}.csv', mode='a') as file:
+            writer = csv.writer(file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+            writer.writerow(data)
 
     def outputData(self, data):
         '''
@@ -169,7 +190,7 @@ class Tester:
 
 if __name__ == '__main__':
     sys.setrecursionlimit(5000)
-    new = Tester([AVLTree(AVLTree)])
+    new = Tester([BinarySearchTree(BinarySearchTree),])
     #new.timedtest(["Inputs/input2.txt"])
     #new.test()
     new.timedtest(["Inputs/F3TEXTOD.txt"])

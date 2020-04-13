@@ -1,4 +1,3 @@
-TEXTO
 Dizem-nos os arautos que ser comediante é uma profissão de alto risco,
 pois o sucesso que suscita ser o humorista eleito da corte pode ser tão
 intenso e inebriante quanto o seu desgaste vertiginosamente rápido. Não
@@ -10,11 +9,3 @@ outro grande comediante e um dos seus maiores ídolos. Tinha então 23 anos.
 Seis anos depois, na SIC Radical, deu a cara como protagonista do Gato
 Fedorento e tornou-se rapidamente na incontornável referência do humor
 contemporâneo nacional.
-FIM.
-LINHAS anos
-LINHAS de
-LINHAS tornou
-ASSOC outro 1
-ASSOC Fedorento 8
-ASSOC tornou-se 9
-TCHAU
