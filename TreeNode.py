@@ -15,6 +15,7 @@ class TreeNode(Node):
         self.right = right
         self.red = True
         self.parent = None
+        self.key = 0
 
     def __contains__(self, node):
         """
@@ -115,6 +116,86 @@ class TreeNode(Node):
 
         if not isinstance(self.data, int):
             rotations[0] += 1
+        return new
+
+    def minHeapify(self, rotations):
+        """
+            Minheapifies a node
+        :param rotations:
+        :return:
+        """
+        if not self.left and not self.right:
+            return self
+        elif self.left and not self.right or (self.left and self.right and self.left.key == min(self.left.key, self.right.key)):
+            if self.left.key < self.key:
+                rotations[0] += 1
+                return self.heapifyLeft()
+
+            return self
+        elif self.right and not self.left or (self.left and self.right and self.right.key == min(self.left.key, self.right.key)):
+            if self.right.key < self.key:
+                rotations[0] += 1
+                return self.heapifyRight()
+            return self
+
+    def maxHeapify(self, rotations):
+        """
+            Maxheapifies a node
+        :param rotations:
+        :return:
+        """
+        if not self.left and not self.right:
+            return self
+        elif self.left and not self.right or (self.left and self.right and self.left.key == max(self.left.key, self.right.key)):
+            if self.left.key > self.key:
+                rotations[0] += 1
+                return self.heapifyLeft()
+
+            return self
+        elif self.right and not self.left or (self.left and self.right and self.right.key == max(self.left.key, self.right.key)):
+            if self.right.key > self.key:
+                rotations[0] += 1
+                return self.heapifyRight()
+            return self
+
+    def heapifyRight(self):
+        """
+            Switches node with on the right side
+        :return: heapified mode
+        """
+        new = self.right
+        new.parent = self.parent
+        temp = self.left
+
+        self.left = self.right.left if self.right else None
+        self.right = self.right.right if self.right else None
+        if self.left:
+            self.left.parent = self
+        if self.right:
+            self.right.parent = self
+        self.parent = new
+        new.right = self
+        new.left = temp
+        return new
+
+    def heapifyLeft(self):
+        """
+            Switches node with on the left side
+        :return: heapified mode
+        """
+        new = self.left
+        new.parent = self.parent
+        temp = self.right
+
+        self.left = self.left.left if self.left else None
+        self.right = self.left.right if self.left else None
+        if self.left:
+            self.left.parent = self
+        if self.right:
+            self.right.parent = self
+        self.parent = new
+        new.left = self
+        new.right = temp
         return new
 
     def InOrder(self, order):
