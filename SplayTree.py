@@ -87,10 +87,6 @@ class SplayTree(BinarySearchTree):
 
 if __name__ == '__main__':
     sp = SplayTree(SplayTree)
-    sp.add(10)
-    sp.add(12)
-    sp.add(8)
-    sp.add(11)
-    sp.add(9)
-    sp.get(9)
+    sp.parseText()
+    print(sp.rotations)
     print("eks mdee")

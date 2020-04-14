@@ -56,7 +56,7 @@ class Tester:
             for element in tests:
                 wrapped = self.wrapper(element.parseTextViaFilename, file)
                 buildTime = float(timeit.timeit(wrapped, number=20) * 1000)
-                rotates = element.rotations
+                rotates = element.rotations[0]
                 buildTime /= 20
                 for i in range(50):
                     if element.__class__.__name__ == "SplayTree":
@@ -79,14 +79,15 @@ class Tester:
                         wrapped = self.wrapper(element.find, choice)
                         avgTime += float(timeit.timeit(wrapped, number=20) * 1000)
                         element.get(choice)
-                    wrapped = self.wrapper(element.get, choice)
-                    avgTime += float(timeit.timeit(wrapped, number=20) * 1000)
+                    else:
+                        wrapped = self.wrapper(element.get, choice)
+                        avgTime += float(timeit.timeit(wrapped, number=20) * 1000)
                 lines500 = avgTime / 20
 
-                self.rawOutput("raw_output", [file, element.__class__.__name__, element.total, element.unique, rotates[0], buildTime, lines50,
+                self.rawOutput("raw_output", [file, element.__class__.__name__, element.total, element.unique, rotates, buildTime, lines50,
                      assoc50, lines500])
                 self.outputData(
-                    [file, element.__class__.__name__, element.total, element.unique, rotates[0], buildTime, lines50,
+                    [file, element.__class__.__name__, element.total, element.unique, rotates, buildTime, lines50,
                      assoc50, lines500])
                 avgTime = 0
 
@@ -190,10 +191,10 @@ class Tester:
 
 if __name__ == '__main__':
     sys.setrecursionlimit(5000)
-    new = Tester([BinarySearchTree(BinarySearchTree),])
+    new = Tester([SplayTree(SplayTree)])
     #new.timedtest(["Inputs/input2.txt"])
     #new.test()
-    new.timedtest(["Inputs/F3TEXTOD.txt"])
-    #new.timedtest("Inputs/F3TEXTOD.txt"])
+    #new.timedtest(["Inputs/input3.txt"])
+    new.timedtest(["Inputs/F3TEXTOA.txt","Inputs/F3TEXTOB.txt","Inputs/F3TEXTOC.txt","Inputs/F3TEXTOD.txt"])
    #new.test()
 
