@@ -88,7 +88,7 @@ class Tester:
                      assoc50, lines500])
                 self.outputData(
                     [file, element.__class__.__name__, element.total, element.unique, rotates, buildTime, lines50,
-                     assoc50, lines500])
+                     assoc50, lines500, element.substructure.__name__])
                 avgTime = 0
 
     def rawOutput(self, filename, data):
@@ -102,7 +102,7 @@ class Tester:
         :param data: array that contains all time data about a dataStructure
         :return: --
         '''
-        print(f"Filename : {data[0]}, using {data[1]}")
+        print(f"Filename : {data[0]}, using {data[1]} with {data[9]}")
         print(f"Total number of words: {data[2]}")
         print(f"Total number of unique  words: {data[3]}")
         print(f"Total number of rotations: {data[4]}")
@@ -191,10 +191,10 @@ class Tester:
 
 if __name__ == '__main__':
     sys.setrecursionlimit(5000)
-    new = Tester([SplayTree(SplayTree)])
+    new = Tester([AVLTree(RBTree)])
     #new.timedtest(["Inputs/input2.txt"])
     #new.test()
     #new.timedtest(["Inputs/input3.txt"])
-    new.timedtest(["Inputs/F3TEXTOA.txt","Inputs/F3TEXTOB.txt","Inputs/F3TEXTOC.txt","Inputs/F3TEXTOD.txt"])
+    new.timedtest(["Inputs/F3TEXTOA.txt"])
    #new.test()
 

@@ -13,6 +13,7 @@ class TreeNode(Node):
         super(TreeNode, self).__init__(data, lines)
         self.left = left
         self.right = right
+        self.height = 0
         self.red = True
         self.parent = None
         self.key = 0
@@ -30,20 +31,6 @@ class TreeNode(Node):
         else:
             return False if self.left is None else node in self.left
 
-    def height(self):
-        """
-            Calculates the height of a node
-        :return: height of a node
-        """
-        if self.right is None and self.left is None:
-            return 1
-        elif self.right is None:
-            return 1 + self.left.height()
-        elif self.left is None:
-            return 1 + self.right.height()
-        else:
-            return 1 + max(self.right.height(), self.left.height())
-
     def EF(self):
         """
             Calculates the equilibrium factor in the node (used in AVL Tree)
@@ -52,11 +39,11 @@ class TreeNode(Node):
         if self.right is None and self.left is None:
             return 0
         elif self.right is None:
-            return self.left.height()
+            return self.left.height
         elif self.left is None:
-            return -self.right.height()
+            return -self.right.height
         else:
-            return self.left.height() - self.right.height()
+            return self.left.height - self.right.height
 
     def add(self, node, balancer):
         """
