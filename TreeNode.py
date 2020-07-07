@@ -13,7 +13,7 @@ class TreeNode(Node):
         super(TreeNode, self).__init__(data, lines)
         self.left = left
         self.right = right
-        self.height = 0
+        self.height = 1
         self.red = True
         self.parent = None
         self.key = 0
@@ -41,7 +41,7 @@ class TreeNode(Node):
         elif self.right is None:
             return self.left.height
         elif self.left is None:
-            return -self.right.height
+            return - self.right.height
         else:
             return self.left.height - self.right.height
 
@@ -83,6 +83,10 @@ class TreeNode(Node):
         self.parent = new
         new.right = self
 
+        self.height = 1 + max(self.right.height if self.right else 0,
+                              self.left.height if self.left else 0)
+        new.height = 1 + max(new.right.height if new.right else 0, new.left.height if new.left else 0)
+
         if not isinstance(self.data, int):
             rotations[0] += 1
         return new
@@ -100,6 +104,11 @@ class TreeNode(Node):
         self.right = new.left
         self.parent = new
         new.left = self
+
+        self.height = 1 + max(self.right.height if self.right else 0,
+                              self.left.height if self.left else 0)
+        new.height = 1 + max(new.right.height if new.right else 0, new.left.height if new.left else 0)
+
 
         if not isinstance(self.data, int):
             rotations[0] += 1

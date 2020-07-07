@@ -191,7 +191,7 @@ class Tester:
 
 if __name__ == '__main__':
     sys.setrecursionlimit(5000)
-    new = Tester([AVLTree(RBTree)])
+    new = Tester([AVLTree(AVLTree)])
     #new.timedtest(["Inputs/input2.txt"])
     #new.test()
     #new.timedtest(["Inputs/input3.txt"])

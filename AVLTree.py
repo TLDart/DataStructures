@@ -19,7 +19,7 @@ class AVLTree(BinarySearchTree):
         """
         hL = root.left.height if root.left else 0
         hR = root.right.height if root.right else 0
-        root.height = hL + hR
+        root.height = 1 + max(hL, hR)
 
         ef = root.EF()
         # print(f"{self},{ef}")
