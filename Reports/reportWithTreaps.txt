@@ -20,28 +20,28 @@ Filename : Inputs/F3TEXTOA.txt, using AVLTree
 Total number of words: 10000
 Total number of unique  words: 2920
 Total number of rotations: 2113
-Time to build matrix: 3053.5847461999997 ms
+Time to build matrix: 212.25631049999998 ms
 50 "LINES" calls with random words: 0.2601609999956622 ms
 50 "ASSOC" calls with random word and line 0.3777285500021321 ms
 500 "LINES" using a 10 word subset: 2.480490599985785 ms
 ----------------END OF REPORT----------------------
-Filename : Inputs/F3TEXTOA.txt, using RBTree
+Filename : Inputs/F3TEXTOA.txt, using RBTree with RBTree
 Total number of words: 10000
 Total number of unique  words: 2920
 Total number of rotations: 1728
-Time to build matrix: 192.34035869999957 ms
-50 "LINES" calls with random words: 0.27410814999910826 ms
-50 "ASSOC" calls with random word and line 0.38069545000638527 ms
-500 "LINES" using a 10 word subset: 2.47286899998187 ms
+Time to build matrix: 395.8114985 ms
+50 "LINES" calls with random words: 0.30668190000024964 ms
+50 "ASSOC" calls with random word and line 0.4832134000001709 ms
+500 "LINES" using a 10 word subset: 2.795630200001309 ms
 ----------------END OF REPORT----------------------
-Filename : Inputs/F3TEXTOA.txt, using SplayTree
+Filename : Inputs/F3TEXTOA.txt, using SplayTree with SplayTree
 Total number of words: 10000
 Total number of unique  words: 2920
-Total number of rotations: 120502
-Time to build matrix: 381.4146646499992 ms
-50 "LINES" calls with random words: 0.306472600000518 ms
-50 "ASSOC" calls with random word and line 0.7488845999986893 ms
-500 "LINES" using a 10 word subset: 2.4348379500182205 ms
+Total number of rotations: 117964
+Time to build matrix: 547.01223945 ms
+50 "LINES" calls with random words: 0.3355638000005712 ms
+50 "ASSOC" calls with random word and line 0.6531338500000317 ms
+500 "LINES" using a 10 word subset: 1.5090289000021073 ms
 ----------------END OF REPORT----------------------
 Filename : Inputs/F3TEXTOA.txt, using MaxTreap
 Total number of words: 10000
@@ -74,7 +74,7 @@ Filename : Inputs/F3TEXTOB.txt, using AVLTree
 Total number of words: 10000
 Total number of unique  words: 2922
 Total number of rotations: 2910
-Time to build matrix: 2981.2148893500025 ms
+Time to build matrix: 148.22529765 ms
 50 "LINES" calls with random words: 0.27114549997122595 ms
 50 "ASSOC" calls with random word and line 0.3749397500030227 ms
 500 "LINES" using a 10 word subset: 2.67500495011177 ms
@@ -128,7 +128,7 @@ Filename : Inputs/F3TEXTOC.txt, using AVLTree
 Total number of words: 10038
 Total number of unique  words: 2922
 Total number of rotations: 2910
-Time to build matrix: 3136.7356842500003 ms
+Time to build matrix: 147.6548601 ms
 50 "LINES" calls with random words: 0.26388280000446684 ms
 50 "ASSOC" calls with random word and line 0.3991151500031265 ms
 500 "LINES" using a 10 word subset: 2.5525086499783356 ms
@@ -182,7 +182,7 @@ Filename : Inputs/F3TEXTOD.txt, using AVLTree
 Total number of words: 10000
 Total number of unique  words: 84
 Total number of rotations: 44
-Time to build matrix: 644.781644950001 ms
+Time to build matrix: 214.03676985 ms
 50 "LINES" calls with random words: 0.1619851999976163 ms
 50 "ASSOC" calls with random word and line 0.40725789999953577 ms
 500 "LINES" using a 10 word subset: 1.6129122499791038 ms
