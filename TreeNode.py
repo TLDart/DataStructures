@@ -47,7 +47,7 @@ class TreeNode(Node):
 
     def add(self, node, balancer):
         """
-            Performs a binary search tree add and the then uses the balancer to the node
+            Performs a binary search tree add and the then uses the balancer to balance the node
         :param node:
         :param balancer: balancing function applied to the node after the bst add
         :return: returns the tree with the balanced node
@@ -68,6 +68,73 @@ class TreeNode(Node):
                 node.parent = self
 
         return balancer(self, node)
+
+    def remove(self, node, balancer):
+        """
+            Performs a binary search tree deletion and the then uses the balancer to balance the node
+        :param node:
+        :param balancer: balancing function applied to the node after the bst add
+        :return: returns the tree with the balanced node
+        """
+        #0 child
+        if self.left and self.left.data == node.data:
+            if not self.left.left and not self.left.right: # 0 child
+                self.left = None
+            elif self.left.left and not self.left.right: #1 child
+                self.left = self.left.left
+            elif not self.left.left and self.left.right:
+                self.left = self.left.right
+            elif self.left.left and self.left.right: #2 child
+                self.left = self.switchNode(self.left, self.left.left.findRightMost())
+                self.left = self.left.remove(node, balancer)
+
+        elif self.right and self.right.data == node.data:
+            if not self.right.left and not self.right.right:  # 0 child
+                self.right = None
+            elif self.right.left and not self.right.right:  # 1 child
+                self.right = self.right.left
+            elif not self.right.left and self.right.right:
+                self.right = self.right.right
+            elif self.right.left and self.right.right:  # 2 child
+                self.right = self.switchNode(self.right, self.right.left.findRightMost())
+                self.right = self.right.remove(node, balancer)
+
+        elif node.data > self.data:
+            if self.right:
+                self.right = self.right.remove(node, balancer)
+        elif node.data < self.data:
+            if self.left:
+                self.left = self.left.remove(node, balancer)
+        return balancer(self, node)
+
+    def findRightMost(self):
+        return self if not self.right else self.right.findRightMost()
+
+    def switchNode(self, x, y):
+        yParent = y.parent
+        xParent = x.parent
+
+        if y.parent.right and y.parent.right.data == y.data:
+            y.parent.right = None
+        else:
+            y.parent.left = None
+
+        y.left = x.left
+        y.right = x.right
+        x.right = None
+        x.left = None
+        y.parent = x.parent
+        if yParent.data == x.data:
+            if y.data > x.data:
+                y.right = x
+            else:
+                y.left = x
+            x.parent = y
+        else:
+            yParent.right = x
+            x.parent = yParent
+        return y
+        print("asdasd")
 
     def rotateRight(self, rotations):
         """

@@ -173,6 +173,23 @@ class BinarySearchTree:
         else:
             return None
 
+    def remove(self, node, lines=None):
+        """
+            Removes a node from the tree
+        :param node: Node to be removed
+        :return:
+        """
+        new = node if isinstance(node, TreeNode) else TreeNode(node, self.substructure(self.substructure))
+        if lines:
+            for line in lines:
+                new.lines.add(line)
+
+        if self.root:
+            self.root = self.root.remove(new, self.balancer)
+            self.root.red = False
+        else:
+            raise Exception("Can't remove from empty tree")
+
     def InOrder(self):
         """
             Returns a string representing the tree in order
@@ -204,6 +221,14 @@ class BinarySearchTree:
 if __name__ == '__main__':
     bst = BinarySearchTree(BinarySearchTree)
     bst.add(10)
+    bst.add(8)
+    bst.add(5)
+    bst.add(12)
+    bst.add(122)
+    bst.add(9)
+    print("test")
+    bst.remove(8)
+    bst.remove(122)
     node = bst.get(10)
     node.lines.add(3)
     print("tegs")
